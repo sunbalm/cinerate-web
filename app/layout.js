@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
           <GameProvider>
           <Header />
           {children}
-          <Footer />
+          {/* <Footer /> */}
           </GameProvider>
         </SocketProvider>
       </body>

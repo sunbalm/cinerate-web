@@ -1,6 +1,11 @@
-h1, h2, h3, h4, label, p{
+h1, h2, h3, h4, label, p, li{
     font-family: "Poppins", "Inter", sans-serif;
     color: var(--text);
+}
+
+h1, h2, p{
+    margin: 0;
+    padding: 0;
 }
 
 .small{
@@ -9,7 +14,31 @@ h1, h2, h3, h4, label, p{
     font-size: 10px;
 }
 
+li,
+li p,
+li .small {
+    color: var(--white);
+}
+
+li p {
+    margin: 0;
+}
+
+.right{
+    text-align: right;
+}
+
 .cine-font{
     font-family: "Monoton", sans-serif;
     color: var(--red);
+    font-weight: 500;
+}
+
+label{
+    font-variant: small-caps;
+    font-weight: 600;
+}
+
+.rating{
+    font-size: 30px;
 }

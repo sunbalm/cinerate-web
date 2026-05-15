@@ -1,0 +1,57 @@
+.movie-accordion{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.movie-accordion details{
+    background: var(--red);
+    color: var(--white);
+
+    border: 1px solid transparent;
+
+    padding: 12px 18px;
+
+    box-shadow:
+        rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    transition:
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+.movie-accordion details[open]{
+    background: var(--hover);
+
+    box-shadow:
+        rgba(0, 0, 0, 0.16) 0px 10px 20px -6px,
+        rgba(0, 0, 0, 0.10) 0px 4px 10px -4px;
+}
+
+.movie-accordion summary{
+    cursor: pointer;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    list-style: none;
+}
+
+.movie-accordion summary::-webkit-details-marker{
+    display: none;
+}
+
+.movie-accordion summary::after{
+    content: "+";
+    float: right;
+}
+
+.movie-accordion details[open] summary::after{
+    content: "−";
+}
+
+.movie-accordion p{
+    margin: 10px 0 0;
+    color: var(--white);
+}

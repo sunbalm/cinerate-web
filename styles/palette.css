@@ -1,5 +1,8 @@
 :root{
-    --background: #eeeded;
-    --text: #434343;
+    --background: #ffffff;
+    --text: #454343;
     --red: #942424;
+    --white: #ffffff;
+    --hover: #c73131;
+    --focus: #fc6868;
 }

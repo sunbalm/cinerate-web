@@ -1,0 +1,21 @@
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label{
+    font-weight: 600;
+}
+
+.form-group p{
+    margin: 0;
+    opacity: 0.8;
+    font-size: 14px;
+}

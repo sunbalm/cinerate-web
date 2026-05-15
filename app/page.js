@@ -24,34 +24,63 @@ export default function Home(){
     <div className='page-container'>
       {connected ? 
         <>
+        <div className='section'>
         <form onSubmit={updateName}>
-        <label>Name:</label>
+        <label>Name</label>
         <input placeholder={socket.id} value={name} onChange={(event) => setName(event.target.value)}></input>
       <button type="submit">Update</button>
       </form>
+      </div>
 
-      <button onClick={() => router.push("/create-game")}>Create Game</button>
+<div className='section grid'>
+<button onClick={() => router.push("/create-game")}>Create Game</button>
     
       <button>Join Private Game</button>
-
+</div>
+      
+<div className='section'>
       <h2>Public Games</h2>
-      <ul>
-        {Object.keys(games).map((game, index) => {
-          return (
-            <div key={`game-${index}`}>
-              {games[game].password.length === 0 &&
-              !games[game].active && (
-                <li key={`game-${games[game].host}`}>
-                  <span>{games[game].gameName}</span> 
-                  <span>{games[game].players.length} / {games[game].playerCount} Players</span> 
-                  <span><button onClick={() => joinGame(game)}>Join Game</button></span>
-                </li>
-              )}
-            </div>
-          );          
-        })}
-      </ul>
-      </> : <><p>Server warming up.</p></>}
+      <p className='small'>Click game below to join</p>
+  <ul>
+
+  {Object.keys(games).map((game) => {
+
+    const currentGame = games[game];
+
+    if (currentGame.password.length !== 0 || currentGame.active) {
+
+      return null;
+
+    }
+
+    return (
+
+      <li
+
+        onClick={() => joinGame(game)}
+
+        key={`game-${currentGame.host}`}
+
+      >
+
+        <p>{currentGame.gameName}</p>
+
+        <p className="small">
+
+          {currentGame.players.length} / {currentGame.playerCount} Players
+
+        </p>
+
+      </li>
+
+    );
+
+  })}
+
+</ul>
+      </div>
+      </> : <div className='section'><p>Server warming up.</p></div>}
+      
     </div>
   )
 }

@@ -1,0 +1,11 @@
+a:link{
+    color: var(--white);
+}
+
+a:active{
+    color: var(--white);
+}
+
+a:hover{
+    color: var(--white);
+}

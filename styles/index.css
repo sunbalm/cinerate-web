@@ -1,6 +1,20 @@
 @import url('./palette.css');
 @import url('./typography.css');
 @import url('./containers.css');
+@import url('./input.css');
+@import url('./forms.css');
+@import url('./buttons.css');
+@import url('./lists.css');
+@import url('./accordion.css');
+@import url('./scrollbar.css');
+@import url('./table.css');
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body{
     margin: 0;

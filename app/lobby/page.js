@@ -12,25 +12,30 @@ export default function LobbyPage(){
   }
 
     return (
-        <div>
-            <h2>Lobby</h2>
-            {console.log("game", game)}
-
-            {game ? <>
+        <div className='page-container'>
             
-            <h3>{game.gameName}</h3>
-            <p>{game.players.length} / {game.playerCount} Players</p>
-            <ul>
-            {game.players.map((player, index) => {
-                return (
-                    <li key={`player-${index}`}><p>{player.name}</p></li>
-                )
-            })} 
-            </ul>
-            {game.host === socket.id ? 
-                <button onClick={handleStartGame} disabled={game.players.length < 2}>Start Game</button> : "Waiting for host to start the game"}
-       
+            {game ? 
+            <>
+                <div className='section'>
+                    <h2>Lobby</h2>
+                    <p>{game.gameName}</p>
+
+                    <h4>Critics <span><p className='small'>{game.players.length} / {game.playerCount} Critics</p></span></h4>
+           
+                    {game.players.map((player, index) => {
+                        return (
+                            <p key={`player-${index}`}>{player.name}</p>
+                        )
+                        })} 
+                </div>
+
+                    {game.host === socket.id ? 
+                <div className='section'>
+                    <button onClick={handleStartGame} disabled={game.players.length < 2}>Start Game</button>
+                    </div>
+                    : <div className='section'><p>Waiting for host to start the game</p></div>}
             </> : <></>}
+         
              </div>
     )
 }
