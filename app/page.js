@@ -79,7 +79,12 @@ export default function Home(){
 
 </ul>
       </div>
-      </> : <div className='section'><p>Server warming up.</p></div>}
+      </> : <div className='section'><p>Server warming up.</p><div className="loader-container">
+  <div
+    className="loader-bar"
+    style={{ "--duration": "75s" }}
+  ></div></div>
+  </div>}
       
     </div>
   )
