@@ -8,6 +8,14 @@ import { ToastProvider } from '@/context/ToastContext';
 export const metadata = {
   title: 'CineRate',
   description: 'Guess IMDB ratings against friends',
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
+  },
+};
+
+export const viewport = {
+  themeColor: "#9b1c1f",
 };
 
 export default function RootLayout({ children }) {

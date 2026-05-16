@@ -60,11 +60,11 @@ export default function RoundResults(){
                         </button>
 
                         <button
-                            className={`results-tab ${activeTab === "scoreboard" ? "active-tab" : ""}`}
-                            disabled={activeTab === "scoreboard"}
-                            onClick={() => setActiveTab("scoreboard")}
+                            className={`results-tab ${activeTab === "score" ? "active-tab" : ""}`}
+                            disabled={activeTab === "score"}
+                            onClick={() => setActiveTab("score")}
                         >
-                            Scoreboard
+                            Score
                         </button>
                     </div>
 
@@ -125,7 +125,7 @@ export default function RoundResults(){
                             </table>
                         )}
 
-                        {activeTab === "scoreboard" && (
+                        {activeTab === "score" && (
                             <table>
                                 <thead>
                                     <tr>

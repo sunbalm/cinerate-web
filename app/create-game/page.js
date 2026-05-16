@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useSocket } from '@/context/SocketContext';
 import { useRouter } from 'next/navigation';
 import { generateGameName } from '@/functions/generateGameName';
+import { useToast } from "@/context/ToastContext";
 
 import ConnectionMsg from '@/components/ConnectionMsg';
 
@@ -15,10 +16,30 @@ export default function CreateGamePage(){
     
     const { socket, connected } = useSocket();
     const router = useRouter();
+    const { showToast } = useToast();
+
+    function validateGameName(value) {
+        const trimmed = value.trim();
+
+        // Max length check
+        if (trimmed.length > 50) {
+            showToast('Game name must be 50 characters or less', 'error');
+            return false;
+        }
+
+        if (!/^[A-Za-z\s]+$/.test(trimmed)) {
+            showToast('Game name can only contain letters and spaces', 'error');
+            return false;
+        }
+
+        return true;
+    }
 
     function createGame(event){
         event.preventDefault();
-        const payload = {
+
+        if(validateGameName(gameName)){
+            const payload = {
             socketid: socket.id, 
             password: password, 
             playerCount: playerCount,
@@ -27,6 +48,7 @@ export default function CreateGamePage(){
         }
         socket.emit('create_game', payload)
         router.push('/lobby')
+        }
     }
 
     return (

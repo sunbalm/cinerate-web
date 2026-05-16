@@ -1,4 +1,37 @@
 .header{
-    display: block;
-    padding: 0 20px 0 20px;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.header-left{
+    display: flex;
+    flex-direction: column;
+}
+
+.install-button{
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #9b1c1f;
+    color: white;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.install-button:hover{
+    opacity: 0.9;
+    transform: scale(1.03);
 }

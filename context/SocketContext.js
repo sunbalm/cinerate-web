@@ -10,6 +10,7 @@ export function SocketProvider({ children }) {
   const [connected, setConnected] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState(0);
   const [games, setGames] = useState([]);
+  const [alias, setAlias] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -29,7 +30,8 @@ export function SocketProvider({ children }) {
     socket.on("online_users", data => setOnlineUsers(data));
     socket.on("games", data => setGames(data));
     socket.on("disconnect", onDisconnect);
-    
+    socket.on("updated_name", data => setAlias(data.name))
+
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
@@ -44,6 +46,7 @@ export function SocketProvider({ children }) {
         connected,
         onlineUsers,
         games,
+        alias
       }}
     >
       {children}

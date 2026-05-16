@@ -2,18 +2,22 @@
 import { useState, useEffect } from 'react';
 import { useSocket } from "@/context/SocketContext";
 import { useGame } from "@/context/GameContext";
+import { useToast } from "@/context/ToastContext";
 
 import LoaderBar from '@/components/LoaderBar';
+import noPoster from '@/images/no_poster.png';
 
 export default function ChooseMovie(){
     const [dealer, setDealer] = useState(false);
     const [dealerName, setDealerName] = useState("");
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState(null);
+    const [alreadyGuessed, setAlreadyGuessed] = useState([])
     const [loading, setLoading] = useState(false);
 
     const { socket } = useSocket();
     const { game } = useGame();
+    const { showToast } = useToast();
 
     //check if dealer
     useEffect(() => {
@@ -27,6 +31,13 @@ export default function ChooseMovie(){
             setDealer(false);
         }
     }, [game, socket.id]);
+
+    useEffect(() => {
+        if(localStorage.getItem('cinerate')){
+            const array = JSON.parse(localStorage.getItem('cinerate'));
+            setAlreadyGuessed(array);
+        }
+    }, [])
 
     async function handleSearch(event) {
         event.preventDefault();
@@ -59,6 +70,7 @@ export default function ChooseMovie(){
 
     return (
         <>
+        {console.log("SEARCH RESULTS", searchResults)}
             {dealer ? 
                 <div>
                     <div className='section'>
@@ -87,9 +99,19 @@ export default function ChooseMovie(){
                                 <div 
                                     className='movie-card' 
                                     key={`search-result-${index}`} 
-                                    onClick={() => getFilmDetails(movie.imdbID)}
+                                    onClick={() => {
+                                        if(alreadyGuessed.includes(movie.imdbID)){
+                                            showToast("That movie was already played this game.", 'error')
+                                        }else{
+                                            getFilmDetails(movie.imdbID)}
+                                        }
+                                    }
                                 >
-                                    <img src={movie.Poster} />
+                                    <img 
+                                        src={movie.Poster && movie.Poster !== 'N/A' ? movie.Poster : noPoster.src}
+                                        alt={movie.Title}
+                                        onError={event => event.target.src = noPoster.src}
+                                    />
                                     <p>{movie.Title}</p>
                                     <p className='small'>({movie.Year})</p>
                                 </div>

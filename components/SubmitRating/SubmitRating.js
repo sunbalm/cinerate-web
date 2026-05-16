@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSocket } from "@/context/SocketContext";
 import { useGame } from "@/context/GameContext";
 
 import LoaderBar from '@/components/LoaderBar';
+import noPoster from '@/images/no_poster.png';
 
 export default function SubmitRating(){
     const [movieRating, setMovieRating] = useState(5.5);
@@ -25,15 +26,28 @@ export default function SubmitRating(){
         setDisableGuess(true);
     }
 
+    useEffect(() => {
+        if(localStorage.getItem('cinerate')){
+            const array = JSON.parse(localStorage.getItem('cinerate'));
+            array.push(game.guessMovie.imdbID);
+             localStorage.setItem('cinerate', JSON.stringify(array));
+        }else{
+            localStorage.setItem('cinerate', JSON.stringify([game.guessMovie.imdbID]));
+        }
+    }, [])
+
     return (
         <>
+        {console.log("GAME", game)}
         <div className='section'>
             <div className='card'>    
                 <h2>Guess Rating</h2>
                 <h3>{game.guessMovie.Title}</h3>
                 <img 
-                    className='movie-poster' 
-                    src={game.guessMovie.Poster} 
+                    src={game.guessMovie.Poster && game.guessMovie.Poster !== 'N/A' ? game.guessMovie.Poster : noPoster.src}
+                    alt={game.guessMovie.Title}
+                    onError={event => event.target.src = noPoster.src}
+                    width={"100%"}
                 />
                     
                 <label>Guess Rating: {movieRating}</label>
