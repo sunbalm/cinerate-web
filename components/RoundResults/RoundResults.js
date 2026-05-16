@@ -154,7 +154,7 @@ export default function RoundResults(){
                         )}
                     </div>
                 </div>
-        <LoaderBar />
+        <LoaderBar time={10} />
     </>
     )
 }

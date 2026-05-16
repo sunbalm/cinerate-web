@@ -6,7 +6,7 @@ export default function ConnectionMsg(){
             <div className='section'>
                 <p>Server is waking up.</p>
             </div>
-            <LoaderBar />
+            <LoaderBar time={75} />
         </>
     )
 }

@@ -38,7 +38,6 @@ export default function SubmitRating(){
 
     return (
         <>
-        {console.log("GAME", game)}
         <div className='section'>
             <div className='card'>    
                 <h2>Guess Rating</h2>
@@ -138,7 +137,7 @@ export default function SubmitRating(){
                 </div>
             </div>
         </div>
-        <LoaderBar />
+        <LoaderBar time={30} />
 </>
     )
 }

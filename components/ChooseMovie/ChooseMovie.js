@@ -129,7 +129,7 @@ export default function ChooseMovie(){
                     </div>
                 </div>
             }
-            <LoaderBar />
+            <LoaderBar time={60} />
         </>
     )
 }

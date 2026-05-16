@@ -59,7 +59,7 @@ export default function GameOver(){
                 </div>
             </div>
 
-            <LoaderBar />
+            <LoaderBar time={15} />
         </>
     )
 }
