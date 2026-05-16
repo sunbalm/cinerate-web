@@ -1,7 +1,6 @@
 export default function LoaderBar({ time }) {
 
     return (
-
         <div className="loader-container">
             <div
                 className="loader-bar"
@@ -9,7 +8,6 @@ export default function LoaderBar({ time }) {
                     "--duration": `${time}s`
                 }}
             />
-
         </div>
 
     );

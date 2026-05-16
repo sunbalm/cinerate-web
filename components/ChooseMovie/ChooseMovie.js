@@ -70,7 +70,6 @@ export default function ChooseMovie(){
 
     return (
         <>
-        {console.log("SEARCH RESULTS", searchResults)}
             {dealer ? 
                 <div>
                     <div className='section'>
