@@ -2,18 +2,15 @@ table{
     width: 100%;
     border-collapse: collapse;
     overflow: hidden;
-
     background:
         linear-gradient(
             145deg,
             rgba(255,255,255,0.06),
             rgba(255,255,255,0.02)
         );
-
     box-shadow:
         rgba(0, 0, 0, 0.12) 0px 4px 12px,
         rgba(0, 0, 0, 0.08) 0px 2px 6px;
-
     backdrop-filter: blur(8px);
 }
 
@@ -33,20 +30,14 @@ th{
 
 td{
     padding: 14px 18px;
-
     font-size: 16px;
-
     color: var(--black);
-
     border-bottom:
         1px solid rgba(255,255,255,0.06);
-
     transition:
         background-color 0.2s ease,
         transform 0.15s ease;
 }
-
-/* alternating rows */
 
 tbody tr:nth-child(odd){
     background: rgba(255,255,255,0.03);
@@ -56,39 +47,27 @@ tbody tr:nth-child(even){
     background: rgba(201, 200, 200, .2);
 }
 
-/* hover */
-
 tbody tr:hover{
     background: var(--hover);
     cursor: default;
-
     transform: scale(1.005);
-
     box-shadow:
         inset rgba(255,255,255,0.04) 0px 0px 0px 1px;
 }
 
-/* last row */
-
 tbody tr:last-child td{
     border-bottom: none;
 }
-
-/* right align utility */
 
 td.right,
 th.right{
     text-align: right;
 }
 
-/* centered utility */
-
 td.center,
 th.center{
     text-align: center;
 }
-
-/* responsive */
 
 .table-wrapper{
     width: 100%;
@@ -102,83 +81,11 @@ th.center{
             rgba(255,255,255,0.08),
             rgba(255,255,255,0.03)
         );
-
     border: 1px solid rgba(255,255,255,0.08);
-
     padding: 20px;
-
     box-shadow:
         rgba(0, 0, 0, 0.16) 0px 10px 24px,
         rgba(0, 0, 0, 0.10) 0px 4px 10px;
 
     backdrop-filter: blur(8px);
-}
-
-/* tabs */
-
-.results-tabs{
-    display: flex;
-
-    gap: 0;
-
-    margin-bottom: 18px;
-
-    overflow: hidden;
-   
-
-    border-bottom:
-        1px solid rgba(255,255,255,0.08);
-}
-
-.results-tab{
-    flex: 1;
-
-    background: rgba(255,255,255,0.04);
-
-  
- color: var(--black) !important;
-    border: none;
-
-    border-bottom: 3px solid transparent;
-
-    padding: 14px 18px;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.15s ease;
-}
-
-.results-tab:hover:not(.active-tab){
-    background: rgba(255,255,255,0.08);
-
-    color: var(--white);
-}
-
-/* active */
-
-.results-tab.active-tab{
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,0.10),
-            rgba(255,255,255,0.04)
-        );
-
-    color: var(--white);
-
-    border-bottom: 3px solid var(--focus);
-
-    box-shadow:
-        inset rgba(255,255,255,0.06) 0px 1px 0px;
-
-    cursor: default;
-
-    pointer-events: none;
 }

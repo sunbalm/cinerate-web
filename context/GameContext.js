@@ -15,7 +15,6 @@ export function GameProvider({ children }) {
     if (!connected) return;
 
     socket.on("update_game", ({gameData}) => {
-      console.log("game data:", gameData)
       setGame(gameData);
     });
 

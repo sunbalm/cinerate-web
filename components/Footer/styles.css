@@ -1,0 +1,16 @@
+.footer{
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    left: 0;
+    bottom: 0px;
+    padding: 5px;
+    width: 100%;
+    height: 18px;
+    z-index: 999999;
+    margin: 0;
+    background: rgba(255,255,255,0.08);
+    :nth-child(even){
+        text-align: right;
+    }
+}

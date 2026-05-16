@@ -1,11 +1,16 @@
-h1, h2, h3, h4, label, p, li{
+h1, h2, h3, h4, label, p, li, .movie-accordion details{
     font-family: "Poppins", "Inter", sans-serif;
     color: var(--text);
 }
 
-h1, h2, p{
+h1, p{
     margin: 0;
     padding: 0;
+}
+
+h2{
+    padding: 0;
+    margin: 0 0 15px 0;
 }
 
 .small{
@@ -37,8 +42,20 @@ li p {
 label{
     font-variant: small-caps;
     font-weight: 600;
+    margin: 0;
+    padding: 0;
 }
 
 .rating{
-    font-size: 30px;
+    font-size: 72px;
+}
+
+.winner-name{
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    color: #ffe082;
+    text-shadow:
+        rgba(255,215,100,0.45) 0px 0px 16px;
+    margin: 10px 0;
 }

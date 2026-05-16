@@ -1,0 +1,45 @@
+.results-tabs{
+    display: flex;
+    gap: 0;
+    margin: 10px 0 10px 0;
+    overflow: hidden;
+    border-bottom:
+        1px solid rgba(255,255,255,0.08);
+}
+
+.results-tab{
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    color: var(--black) !important;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.results-tab:hover:not(.active-tab){
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+}
+
+.results-tab.active-tab{
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,0.10),
+            rgba(255,255,255,0.04)
+        );
+    color: var(--white);
+    border-bottom: 3px solid var(--focus);
+    box-shadow:
+        inset rgba(255,255,255,0.06) 0px 1px 0px;
+    cursor: default;
+    pointer-events: none;
+}
