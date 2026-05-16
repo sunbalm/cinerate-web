@@ -33,3 +33,58 @@
 .final-scoreboard{
     margin-top: 24px;
 }
+
+/* toast.css */
+
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast {
+  min-width: 260px;
+  padding: 14px 18px;
+  border-radius: 12px;
+
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+  animation: slideIn 0.25s ease;
+}
+
+.toast-default {
+  background: #1f2937;
+}
+
+.toast-success {
+  background: #16a34a;
+}
+
+.toast-error {
+  background: #dc2626;
+}
+
+.toast-warning {
+  background: #d97706;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

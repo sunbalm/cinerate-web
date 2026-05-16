@@ -1,10 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useSocket } from '@/context/SocketContext';
+import { useToast } from "@/context/ToastContext";
 
-export default function UpdateName({ socket }) {
+export default function UpdateName() {
     const [name, setName] = useState('');
-    
+    const { showToast } = useToast();
+    const { socket } = useSocket()
+
     function updateName(event){
         event.preventDefault();
         socket.emit(
@@ -13,6 +17,7 @@ export default function UpdateName({ socket }) {
                 socketid: socket.id, 
                 name: name
             })
+        showToast('Name Updated', 'success')
     }
 
     return (

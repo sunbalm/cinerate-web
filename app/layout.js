@@ -3,6 +3,7 @@ import { SocketProvider } from '@/context/SocketContext';
 import { GameProvider } from '@/context/GameContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { ToastProvider } from '@/context/ToastContext';
 
 export const metadata = {
   title: 'CineRate',
@@ -20,9 +21,11 @@ export default function RootLayout({ children }) {
       <body>
         <SocketProvider>
           <GameProvider>
+            <ToastProvider>
             <Header />
               {children}
             <Footer />
+            </ToastProvider>
           </GameProvider>
         </SocketProvider>
       </body>
