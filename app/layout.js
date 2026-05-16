@@ -4,6 +4,7 @@ import { GameProvider } from '@/context/GameContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ToastProvider } from '@/context/ToastContext';
+import RegisterServiceWorker from '@/components/RegisterServiceWorker';
 
 export const metadata = {
   title: 'CineRate',
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
           <GameProvider>
             <ToastProvider>
             <Header />
+            <RegisterServiceWorker />
               {children}
             <Footer />
             </ToastProvider>

@@ -3,44 +3,27 @@
 import { useEffect, useState } from 'react';
 
 export default function Header() {
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
-    const [showInstall, setShowInstall] = useState(false);
+    const [installMessage, setInstallMessage] = useState('');
 
     useEffect(() => {
-        function handleBeforeInstallPrompt(event) {
-            event.preventDefault();
+        const userAgent = navigator.userAgent.toLowerCase();
+        const isStandalone =
+            window.matchMedia('(display-mode: standalone)').matches ||
+            window.navigator.standalone;
 
-            setDeferredPrompt(event);
-            setShowInstall(true);
+        if (isStandalone) {
+            setInstallMessage('');
+            return;
         }
 
-        window.addEventListener(
-            'beforeinstallprompt',
-            handleBeforeInstallPrompt
-        );
-
-        return () => {
-            window.removeEventListener(
-                'beforeinstallprompt',
-                handleBeforeInstallPrompt
-            );
-        };
+        if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+            setInstallMessage('Install: File → Add to Dock');
+        } else if (userAgent.includes('chrome') || userAgent.includes('edg')) {
+            setInstallMessage('Install from the browser address bar');
+        } else {
+            setInstallMessage('Install from your browser menu');
+        }
     }, []);
-
-    async function installApp() {
-        if (!deferredPrompt) return;
-
-        deferredPrompt.prompt();
-
-        const result = await deferredPrompt.userChoice;
-
-        if (result.outcome === 'accepted') {
-            console.log('App installed');
-        }
-
-        setDeferredPrompt(null);
-        setShowInstall(false);
-    }
 
     return (
         <div className='header'>
@@ -55,13 +38,10 @@ export default function Header() {
                 </p>
             </div>
 
-            {showInstall && (
-                <button
-                    className='install-button'
-                    onClick={installApp}
-                >
-                    Download App
-                </button>
+            {installMessage && (
+                <p className='install-message small'>
+                    {installMessage}
+                </p>
             )}
         </div>
     );
