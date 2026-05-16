@@ -5,7 +5,6 @@
 
 to-do:
 ---
-
 - add timer to:
     - choose movie
     - rate movie
