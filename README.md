@@ -15,3 +15,4 @@ to-do:
 - desktop styles
 - pwa support
 - cinerate icon
+- add sunbalm link
