@@ -19,9 +19,9 @@ export default function Header() {
         if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
             setInstallMessage('Install: File → Add to Dock');
         } else if (userAgent.includes('chrome') || userAgent.includes('edg')) {
-            setInstallMessage('Install from the browser address bar');
+            setInstallMessage('Install: Menu → Add to Home Screen');
         } else {
-            setInstallMessage('Install from your browser menu');
+            setInstallMessage('Install from browser menu.');
         }
     }, []);
 
