@@ -65,12 +65,12 @@ export default function Header() {
                 </p>
             </div>
 
-            <button
+            {/* <button
                 className='install-button'
                 onClick={installApp}
             >
                 Download App
-            </button>
+            </button> */}
         </div>
     );
 }
