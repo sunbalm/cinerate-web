@@ -1,8 +1,17 @@
 :root{
-    --background: #ffffff;
-    --text: #454343;
-    --red: #942424;
+    --background: #f5f6f8;
+    --surface: #ffffff;
+    --surface-muted: #f1f3f5;
+    --text: #17202a;
+    --muted: #687385;
+    --border: #dfe4ea;
+    --red: #9b1c1f;
+    --red-dark: #7f171a;
     --white: #ffffff;
-    --hover: #c73131;
-    --focus: #fc6868;
+    --black: #111827;
+    --hover: #7f171a;
+    --focus: #c24145;
+    --success: #137a45;
+    --warning: #b45309;
+    --danger: #b42318;
 }

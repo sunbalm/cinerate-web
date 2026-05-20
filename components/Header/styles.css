@@ -1,25 +1,26 @@
 .header {
-    width: 100%;
+    width: min(960px, 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-
-    padding: 0 20px;
-    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 24px 16px 8px;
 }
 
 .header-left {
     display: flex;
     flex-direction: column;
+    gap: 4px;
 }
 
 .install-message {
-    text-align: right;
     max-width: 220px;
+    text-align: right;
 }
 
 .install-button{
-    font-size: 10px;
-    padding: 5px;
+    min-height: 34px;
+    padding: 6px 10px;
+    font-size: 12px;
 }

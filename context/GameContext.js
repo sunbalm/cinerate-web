@@ -14,23 +14,56 @@ export function GameProvider({ children }) {
   useEffect(() => {
     if (!connected) return;
 
-    socket.on("update_game", ({gameData}) => {
-      setGame(gameData);
-    });
+    function hydrateGame(gameData, serverNow) {
+      if (!gameData) {
+        setGame(null);
+        return;
+      }
 
-    socket.on("started_game", ({gameData}) => {
-        setGame(gameData);
-        router.push('/game');
-    });
+      setGame({
+        ...gameData,
+        _serverNow: serverNow,
+        _receivedAt: Date.now(),
+      });
+    }
 
-        socket.on("movie_set", ({gameData}) => {
-        setGame(gameData);
-    });
+    function handleUpdateGame({ gameData, serverNow }) {
+      hydrateGame(gameData, serverNow);
+    }
+
+    function handleStartedGame({ gameData, serverNow }) {
+      hydrateGame(gameData, serverNow);
+      router.push('/game');
+    }
+
+    function handleMovieSet({ gameData, serverNow }) {
+      hydrateGame(gameData, serverNow);
+    }
+
+    function handleGameRemoved() {
+      setGame(null);
+      router.push('/');
+    }
+
+    function handleLeftGame() {
+      setGame(null);
+      router.push('/');
+    }
+
+    socket.on("update_game", handleUpdateGame);
+    socket.on("started_game", handleStartedGame);
+    socket.on("movie_set", handleMovieSet);
+    socket.on("game_removed", handleGameRemoved);
+    socket.on("left_game", handleLeftGame);
 
     return () => {
-      socket.off("game_updated", () => {console.log("off")});
+      socket.off("update_game", handleUpdateGame);
+      socket.off("started_game", handleStartedGame);
+      socket.off("movie_set", handleMovieSet);
+      socket.off("game_removed", handleGameRemoved);
+      socket.off("left_game", handleLeftGame);
     };
-  }, [socket, connected]);
+  }, [socket, connected, router]);
 
   return (
     <GameContext.Provider value={{ game, setGame }}>

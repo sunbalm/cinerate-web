@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useSocket } from "@/context/SocketContext";
 import { useGame } from "@/context/GameContext";
+import { useToast } from '@/context/ToastContext';
 
-import LoaderBar from '@/components/LoaderBar';
 import noPoster from '@/images/no_poster.png';
 
 export default function SubmitRating(){
@@ -13,17 +13,29 @@ export default function SubmitRating(){
     
     const { game } = useGame();
     const { socket } = useSocket();
+    const { showToast } = useToast();
+
+    const submittedGuess = game?.guesses?.some((guess) => {
+        return guess.user === socket.id;
+    });
 
     function submitRating(event){
         event.preventDefault()
+        setDisableGuess(true);
+
         socket.emit(
             'submit_rating', 
             {
-                game,
+                roomID: game.roomID,
                 movieRating, 
                 user: socket.id
+            },
+            (response) => {
+                if (!response?.ok) {
+                    setDisableGuess(false);
+                    showToast(response?.error || 'Unable to submit rating.', 'error');
+                }
             });
-        setDisableGuess(true);
     }
 
     useEffect(() => {
@@ -34,7 +46,7 @@ export default function SubmitRating(){
         }else{
             localStorage.setItem('cinerate', JSON.stringify([game.guessMovie.imdbID]));
         }
-    }, [])
+    }, [game.guessMovie.imdbID])
 
     return (
         <>
@@ -53,7 +65,7 @@ export default function SubmitRating(){
                 <form onSubmit={submitRating}>
                     <input 
                         type='range' 
-                        disabled={disableGuess} 
+                        disabled={disableGuess || submittedGuess} 
                         value={movieRating} 
                         step='0.1' 
                         min='0' 
@@ -63,8 +75,8 @@ export default function SubmitRating(){
                     />
                     <button 
                         type='submit' 
-                        disabled={disableGuess}>
-                            {disableGuess ? "Awaiting other guesses" : "Submit"}
+                        disabled={disableGuess || submittedGuess}>
+                            {disableGuess || submittedGuess ? "Awaiting other guesses" : "Submit"}
                     </button>
                 </form>
             </div>
@@ -137,7 +149,6 @@ export default function SubmitRating(){
                 </div>
             </div>
         </div>
-        <LoaderBar time={30} />
 </>
     )
 }

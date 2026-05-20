@@ -1,7 +1,7 @@
 form{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
 .form-group{
@@ -16,6 +16,7 @@ form{
 
 .form-group p{
     margin: 0;
-    opacity: 0.8;
+    color: var(--muted);
     font-size: 14px;
+    line-height: 1.5;
 }

@@ -1,16 +1,17 @@
 .footer{
     position: fixed;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    right: 0;
+    bottom: 0;
     left: 0;
-    bottom: 0px;
-    padding: 5px;
+    z-index: 50;
     width: 100%;
-    height: 18px;
-    z-index: 999999;
-    margin: 0;
-    background: rgba(255,255,255,0.08);
-    :nth-child(even){
-        text-align: right;
-    }
+    padding: 8px 16px;
+    background: rgba(245, 246, 248, 0.96);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+}
+
+.footer .small{
+    width: min(960px, 100%);
+    margin: 0 auto;
 }

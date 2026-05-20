@@ -13,6 +13,7 @@ export default function CreateGamePage(){
     const [playerCount, setPlayerCount] = useState(2);
     const [gameName, setGameName] = useState(generateGameName())
     const [winCount, setWinCount] = useState(5);
+    const [creating, setCreating] = useState(false);
     
     const { socket, connected } = useSocket();
     const router = useRouter();
@@ -39,15 +40,26 @@ export default function CreateGamePage(){
         event.preventDefault();
 
         if(validateGameName(gameName)){
+            setCreating(true);
+
             const payload = {
-            socketid: socket.id, 
-            password: password, 
-            playerCount: playerCount,
-            gameName: gameName,
-            winCount: winCount
-        }
-        socket.emit('create_game', payload)
-        router.push('/lobby')
+                socketid: socket.id, 
+                password: password, 
+                playerCount: Number(playerCount),
+                gameName: gameName,
+                winCount: Number(winCount)
+            }
+
+            socket.emit('create_game', payload, (response) => {
+                setCreating(false);
+
+                if (!response?.ok) {
+                    showToast(response?.error || 'Unable to create game.', 'error');
+                    return;
+                }
+
+                router.push('/lobby')
+            })
         }
     }
 
@@ -106,8 +118,8 @@ export default function CreateGamePage(){
                                     />
                                 </div>
 
-                                <button type='submit'>
-                                    Create Game
+                                <button type='submit' disabled={creating}>
+                                    {creating ? 'Creating...' : 'Create Game'}
                                 </button>
                             </form>
                         </div>

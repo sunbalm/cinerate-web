@@ -154,7 +154,12 @@ export default function RoundResults(){
                         )}
                     </div>
                 </div>
-        <LoaderBar time={10} />
+        <LoaderBar
+            timer={game?.timer}
+            serverNow={game?._serverNow}
+            receivedAt={game?._receivedAt}
+            label='Next round'
+        />
     </>
     )
 }

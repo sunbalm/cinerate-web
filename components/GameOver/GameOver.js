@@ -59,7 +59,12 @@ export default function GameOver(){
                 </div>
             </div>
 
-            <LoaderBar time={15} />
+            <LoaderBar
+                timer={game?.timer}
+                serverNow={game?._serverNow}
+                receivedAt={game?._receivedAt}
+                label='Closing game'
+            />
         </>
     )
 }

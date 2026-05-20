@@ -5,29 +5,22 @@
 }
 
 .movie-accordion details{
-    background: var(--red);
-    color: var(--white);
-    border: 1px solid transparent;
-    padding: 12px 18px;
-    box-shadow:
-        rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-    transition:
-        box-shadow 0.25s ease,
-        background-color 0.25s ease;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 .movie-accordion details[open]{
-    background: var(--hover);
-    box-shadow:
-        rgba(0, 0, 0, 0.16) 0px 10px 20px -6px,
-        rgba(0, 0, 0, 0.10) 0px 4px 10px -4px;
+    border-color: #cbd3dc;
 }
 
 .movie-accordion summary{
     cursor: pointer;
     list-style: none;
-    padding: 12px 18px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-weight: 800;
 }
 
 .movie-accordion summary::-webkit-details-marker{
@@ -37,13 +30,20 @@
 .movie-accordion summary::after{
     content: "+";
     float: right;
+    color: var(--muted);
 }
 
 .movie-accordion details[open] summary::after{
-    content: "−";
+    content: "-";
+}
+
+.movie-accordion table{
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 0;
 }
 
 .movie-accordion p{
-    margin: 10px 0 0;
-    color: var(--white);
+    margin: 0;
 }

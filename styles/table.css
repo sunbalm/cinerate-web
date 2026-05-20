@@ -1,62 +1,39 @@
 table{
     width: 100%;
-    border-collapse: collapse;
     overflow: hidden;
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,0.06),
-            rgba(255,255,255,0.02)
-        );
-    box-shadow:
-        rgba(0, 0, 0, 0.12) 0px 4px 12px,
-        rgba(0, 0, 0, 0.08) 0px 2px 6px;
-    backdrop-filter: blur(8px);
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
 }
 
 thead{
-    background: var(--red);
-    color: var(--white);
+    background: var(--surface-muted);
 }
 
 th{
+    padding: 13px 14px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 800;
     text-align: left;
-    padding: 16px 18px;
-    font-size: 15px;
-    font-weight: 700;
-    font-variant: small-caps;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    text-transform: uppercase;
 }
 
 td{
-    padding: 14px 18px;
-    font-size: 16px;
-    color: var(--black);
-    border-bottom:
-        1px solid rgba(255,255,255,0.06);
-    transition:
-        background-color 0.2s ease,
-        transform 0.15s ease;
-}
-
-tbody tr:nth-child(odd){
-    background: rgba(255,255,255,0.03);
-}
-
-tbody tr:nth-child(even){
-    background: rgba(201, 200, 200, .2);
-}
-
-tbody tr:hover{
-    background: var(--hover);
-    cursor: default;
-    transform: scale(1.005);
-    box-shadow:
-        inset rgba(255,255,255,0.04) 0px 0px 0px 1px;
+    padding: 13px 14px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
 }
 
 tbody tr:last-child td{
     border-bottom: none;
+}
+
+tbody tr:hover{
+    background: #fff7f7;
 }
 
 td.right,
@@ -74,18 +51,15 @@ th.center{
     overflow-x: auto;
 }
 
-.results-card{
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,0.08),
-            rgba(255,255,255,0.03)
-        );
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 20px;
-    box-shadow:
-        rgba(0, 0, 0, 0.16) 0px 10px 24px,
-        rgba(0, 0, 0, 0.10) 0px 4px 10px;
+.winner-row{
+    background: #fff7f7;
+}
 
-    backdrop-filter: blur(8px);
+.exact-row{
+    background: #fef3c7;
+}
+
+.winner-row td,
+.exact-row td{
+    font-weight: 800;
 }

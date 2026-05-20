@@ -7,8 +7,7 @@ export default function Footer(){
 
     return (
         <div className='footer'>
-            <p className='small'>👁️ {onlineUsers}</p>
-            <p className='small'>Sunbalm</p>
+            <p className='small'>Online: {onlineUsers}</p>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSocket } from "@/context/SocketContext";
 import { useGame } from "@/context/GameContext";
 import { useToast } from "@/context/ToastContext";
@@ -8,36 +8,30 @@ import LoaderBar from '@/components/LoaderBar';
 import noPoster from '@/images/no_poster.png';
 
 export default function ChooseMovie(){
-    const [dealer, setDealer] = useState(false);
-    const [dealerName, setDealerName] = useState("");
     const [searchInput, setSearchInput] = useState('');
     const [searchResults, setSearchResults] = useState(null);
-    const [alreadyGuessed, setAlreadyGuessed] = useState([])
     const [loading, setLoading] = useState(false);
+    const [selectingMovie, setSelectingMovie] = useState(false);
 
     const { socket } = useSocket();
     const { game } = useGame();
     const { showToast } = useToast();
+    const dealer = game?.dealer?.socketID === socket.id;
+    const dealerName = game?.dealer?.name || 'The dealer';
 
-    //check if dealer
-    useEffect(() => {
-        if(!game?.dealer) return;
-        
-        setDealerName(game.dealer.name);
+    function wasAlreadyPlayed(imdbID) {
+        const storedMovies = localStorage.getItem('cinerate');
 
-        if (game.dealer.socketID === socket.id) {
-            setDealer(true);
-        } else {
-            setDealer(false);
+        if (!storedMovies) {
+            return false;
         }
-    }, [game, socket.id]);
 
-    useEffect(() => {
-        if(localStorage.getItem('cinerate')){
-            const array = JSON.parse(localStorage.getItem('cinerate'));
-            setAlreadyGuessed(array);
+        try {
+            return JSON.parse(storedMovies).includes(imdbID);
+        } catch {
+            return false;
         }
-    }, [])
+    }
 
     async function handleSearch(event) {
         event.preventDefault();
@@ -57,14 +51,30 @@ export default function ChooseMovie(){
     }
 
     async function getFilmDetails(imdbID) {
+        setSelectingMovie(true);
+
         try {
             const response = (await fetch(`${process.env.NEXT_PUBLIC_SOCKET_URL}/movie?imdbID=${imdbID}`))
             const json = await response.json();
-            socket.emit('set_movie', {game, movie: json});
-            setSearchResults([]);
-            setSearchInput('');
+            socket.emit(
+                'set_movie',
+                { roomID: game.roomID, movie: json },
+                (response) => {
+                    setSelectingMovie(false);
+
+                    if (!response?.ok) {
+                        showToast(response?.error || 'Unable to choose that movie.', 'error');
+                        return;
+                    }
+
+                    setSearchResults([]);
+                    setSearchInput('');
+                }
+            );
         } catch (err) {
             console.error(err);
+            setSelectingMovie(false);
+            showToast('Movie lookup failed.', 'error');
         }
     }
 
@@ -85,7 +95,9 @@ export default function ChooseMovie(){
                                         setSearchInput(event.target.value)} 
                                         value={searchInput} 
                                 />
-                                <button type='submit' disabled={loading}>{loading ? "Searching..." : "Search"}</button>
+                                <button type='submit' disabled={loading || selectingMovie}>
+                                    {loading ? "Searching..." : "Search"}
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -99,7 +111,9 @@ export default function ChooseMovie(){
                                     className='movie-card' 
                                     key={`search-result-${index}`} 
                                     onClick={() => {
-                                        if(alreadyGuessed.includes(movie.imdbID)){
+                                        if (selectingMovie) return;
+
+                                        if(wasAlreadyPlayed(movie.imdbID)){
                                             showToast("That movie was already played this game.", 'error')
                                         }else{
                                             getFilmDetails(movie.imdbID)}
@@ -128,7 +142,12 @@ export default function ChooseMovie(){
                     </div>
                 </div>
             }
-            <LoaderBar time={60} />
+            <LoaderBar
+                timer={game?.timer}
+                serverNow={game?._serverNow}
+                receivedAt={game?._receivedAt}
+                label='Movie pick'
+            />
         </>
     )
 }

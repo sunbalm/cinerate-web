@@ -2,16 +2,14 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 import { socket } from "@/lib/socket";
-import { useRouter } from "next/navigation";
 
 const SocketContext = createContext();
 
 export function SocketProvider({ children }) {
   const [connected, setConnected] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState(0);
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState({});
   const [alias, setAlias] = useState("");
-  const router = useRouter();
 
   useEffect(() => {
     socket.connect();
@@ -26,15 +24,22 @@ export function SocketProvider({ children }) {
       setConnected(false);
     };
 
+    const onOnlineUsers = (data) => setOnlineUsers(data);
+    const onGames = (data) => setGames(data || {});
+    const onUpdatedName = (data) => setAlias(data.name);
+
     socket.on("connect", onConnect);
-    socket.on("online_users", data => setOnlineUsers(data));
-    socket.on("games", data => setGames(data));
+    socket.on("online_users", onOnlineUsers);
+    socket.on("games", onGames);
     socket.on("disconnect", onDisconnect);
-    socket.on("updated_name", data => setAlias(data.name))
+    socket.on("updated_name", onUpdatedName);
 
     return () => {
       socket.off("connect", onConnect);
+      socket.off("online_users", onOnlineUsers);
+      socket.off("games", onGames);
       socket.off("disconnect", onDisconnect);
+      socket.off("updated_name", onUpdatedName);
       socket.disconnect();
     };
   }, []);
